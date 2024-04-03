@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visual Charts</title>
+    <style>
+        :root {
+            --primary: #e7e7e7;
+            --secondary: white;
+            --text: black;
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            min-height: 100vh;
+            background-color: var(--primary);
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2{
+            padding: 20px;;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card{
+            position: relative;
+            width: 40vw;
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: .8rem;
+            box-shadow: 0 .1rem .2rem #789;
+            margin: 60px;
+        }
+
+        .table{
+            margin: 60px;
+            width: 40vw;
+        }
+
+        .table caption{
+            font-weight: bolder;
+            font-size: larger;
+            padding: 10px;
+        }
+
+        .table th{
+            background-color: lightskyblue;
+        }
+
+        .table tr:hover {
+            background-color: #D6EEEE;
+        }
+
+        .table table, th, td {
+            border:1px solid black;
+            padding: 8px;
+            border-collapse: collapse;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .table {
+                width: auto;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Site Age Graph(Line Graph)</h2>
+    <div class="container">
+    <div class="card">
+        <canvas id="bar-graph-1"></canvas>
+    </div>
+    <div class="table">
+        <table>
+            <caption>Site Age Table(Years)</caption>
+            <tr>
+                <th>Site Name</th>
+                <th>Site Age (Years)</th>
+            </tr>
+            <tr>
+            <td>Cox's Stack</td>
+            <td>159</td>
+            </tr>
+            <tr>
+            <td>Dudhope Castle</td>
+            <td>726</td>
+            </tr>
+            <tr>
+            <td>Dundee Law War Memorial</td>
+            <td>99</td>
+            </tr>
+            <tr>
+                <td>Powrie Castle</td>
+                <td>612</td>
+            </tr>
+            <tr>
+                <td>Telford Beacon</td>
+                <td>190</td>
+            </tr>
+            <tr>
+                <td>Wishart's Arch</td>
+                <td>480</td>
+            </tr>
+        </table>
+    </div>
+</div>
+    <h2>Site Elevation Graph(Bar)</h2>
+    <div class="container">
+    <div class="card">
+        <canvas id="bar-graph"></canvas>
+    </div>
+    <div class="table">
+        <table>
+            <caption>Site Elevation Table(Meters)</caption>
+            <tr>
+                <th>Site Name</th>
+                <th>Site Elevation(Meters)</th>
+            </tr>
+            <tr>
+            <td>Cox's Stack</td>
+            <td>96</td>
+            </tr>
+            <tr>
+            <td>Dudhope Castle</td>
+            <td>42</td>
+            </tr>
+            <tr>
+            <td>Dundee Law War Memorial</td>
+            <td>174</td>
+            </tr>
+            <tr>
+                <td>Powrie Castle</td>
+                <td>150</td>
+            </tr>
+            <tr>
+                <td>Telford Beacon</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>Wishart's Arch</td>
+                <td>16</td>
+            </tr>
+        </table>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const canvas = document.querySelector('#bar-graph-1');
+        
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = '#111';
+        const bar_graph_1 = new Chart(canvas, {
+            type: 'bar',
+            data:{
+                labels: ["Cox's Stack", "Dudhope Castle", "Dundee Law War Memorial", "Powrie Castle", "Telford Beacon", "Wishart's Arch" ],
+                datasets: [
+                    {
+                        label: "Age(Years)",
+                        data: [159, 726, 99, 612, 190, 480],
+                        backgroundColor: ['royalblue', 'rosybrown', 'lightgreen', 'sandybrown', 'lightsalmon', 'lightcoral'],
+                    }
+                    
+                ],
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    grid: {
+                        lineWidth: 2,
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false,
+                    }
+                },
+            },
+        });
+        const canvas2 = document.querySelector('#bar-graph');
+        
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = '#111';
+        const bar_graph = new Chart(canvas2, {
+            type: 'bar',
+            data:{
+                labels: ["Cox's Stack", "Dudhope Castle", "Dundee Law War Memorial", "Powrie Castle", "Telford Beacon", "Wishart's Arch" ],
+                datasets: [
+                    {
+                        label: "Elevation(mtrs)",
+                        data: [96, 42, 174, 150, 4, 16],
+                        backgroundColor: ['royalblue', 'rosybrown', 'lightgreen', 'sandybrown', 'lightsalmon', 'lightcoral'],
+                    }
+                    
+                ],
+            },
+            options: {
+                responsive: true,
+                //indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                }
+            },
+        });
+
+        window.addEventListener('resize', () =>{
+            bar_graph_1.resize();
+            bar_graph.resize();
+        })
+    </script> 
+</body>
+</html>

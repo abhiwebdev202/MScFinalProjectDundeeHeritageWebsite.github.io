@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dundee Heritage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+            transform: translateX(-100%);
+            }
+            100% {
+            transform: translateX(0);
+            }
+        }
+        
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 5px;    
+            background: #11141a;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            z-index: 100;
+            opacity: 0.9;
+            animation: 1s ease-out 0s 1 slideInFromLeft;
+        }
+        
+        #nav img {
+            height: 4vw;
+            z-index: 10;
+            position: relative;
+            margin-top: 5px;
+            width: 120px;
+        }
+        
+        #nav a {
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: .3s;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        #nav a:hover,
+        #nav a.active {
+            color: #0ef;
+        }
+        
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #11141a;
+            min-width: 160px;
+            z-index: 1000;
+        }
+        
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: .3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: black;
+            color: white;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Adjust position of dropdown content */
+        .dropdown-content {
+            top: 100%; /* Ensure dropdown appears below the link */
+            left: 0;
+        }
+
+        #main{
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.39);
+        }
+
+        #page1{
+            background-image: url('Dundee\ City\ Map\ New\ 2.png');
+            width: 100%;
+            height: 100vh; 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            display: flex;
+            z-index: 10;
+            opacity: 0.5;
+        }
+
+        #content{
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            margin: auto;
+            display: flex;
+        }
+
+        #content h1 {
+            font-size: 6vw;
+            font-weight: 900;
+            color: #000;
+            display: inline-block;
+            position: relative;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #content h1::before {
+            content: "Welcome to the Heritage Sites Dundee";
+            position: absolute;
+            color: #000;
+            top: -2px;
+            left: -2px;
+            -webkit-text-stroke: 1.5px #6495ED;
+            z-index: -1;
+        }
+
+        #content h2 {
+            font-size: 40px;
+            font-weight: 900;
+            margin-top: 10px;
+            display: inline-block;
+            position:relative;
+            margin-bottom: 20px;
+            color: #000080;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #content h2::before {
+            content: "Lets take a tour around Dundee";
+            position: absolute;
+            color: #fff;
+            top: -2px;
+            left: -2px;
+            -webkit-text-stroke: 1.5px #6495ED;
+            z-index: -1;
+        }
+
+        #content h3 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #000080;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #page2 {
+            width: 100%;
+            height: 100vh;
+            /*background-color: #005BB2;*/
+            background: linear-gradient(-45deg, #ee7752, #005BB2, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+            }
+
+        .des {
+            width: 80%; /* Adjust the width as needed */
+            max-width: 800px; /* Set a maximum width */
+            margin-bottom: 20px; /* Add some space between elements */
+            text-align: center;
+        }
+
+        .des h1, h3{
+            padding: 20px;
+            color: #fff;
+            font-weight: bolder;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .video {
+            width: 80%; /* Adjust the width as needed */
+            max-width: 800px; /* Set a maximum width */
+            margin-top: 20px; /* Add some space between elements */
+            text-align: center;
+        }
+
+        .video video {
+            max-width: 100%; /* Make the video responsive */
+            height: auto;
+            border-radius: 8px;
+        }
+
+        #page3{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(#005BB2, #cecece);
+            position: relative;
+            flex-direction: column;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #page3 h1{
+            font-weight: bolder;
+            margin-bottom: 40px;
+        }
+
+        #page3 .slide-container{
+            max-width: 1120px;
+            width: 100%;
+            background-color: #cecece;
+            padding: 40px 0;
+            border-radius: 8px;
+        }
+
+        #page3 .slide-content{
+            margin: 0 40px;
+            overflow: hidden;
+            border-radius: 25px;
+        }
+
+        #page3 .card{
+            border-radius: 25px;
+            background: white;
+        }
+
+        #page3 .name{
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        #page3 .description{
+            font-size: 14px;
+            color: #789;
+            text-align: center;
+        }
+
+        #page3 .image-content{
+            row-gap: 5px;
+            position: relative;
+        }
+
+        #page3 .image-content,
+        #page3 .card-content{
+           display: flex; 
+           flex-direction: column;
+           align-items: center;
+           padding: 10px 14px;
+        }
+
+        #page3 .overlay{
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: royalblue;
+            border-radius: 25px 25px 0 25px;
+        }
+
+        #page3 .overlay::before,
+        #page3 .overlay::after{
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -40px;
+            height: 40px;
+            width: 40px;
+            background-color: royalblue;
+        }
+
+        #page3 .overlay::after{
+            border-radius: 0 25px 0 0;
+            background-color: white;
+        }
+
+        #page3 .card-image{
+            position: relative;
+            height: 150px;
+            width: 150px;
+        }
+
+        #page3 .card-image .card-img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: white;
+            padding: 3px;
+            border: 4px solid royalblue;
+        }
+
+        #page3 .button{
+            border: none;
+            font-size: 16px;
+            color: white;
+            padding: 8px 16px;
+            background-color: royalblue;
+            border-radius: 6px;
+            margin: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #page3 .button:hover{
+            background: #5044ab;
+        }
+
+        #page3 .swiper-navBtn{
+            color: royalblue;
+            transition: color 0.3s ease;
+        }
+
+        #page3 .swiper-navBtn:hover{
+            color: #5044ab;
+        }
+
+        #page3 .swiper-navBtn::before,
+        #page3 .swiper-navBtn::after{
+            font-size: 40px;
+        }
+
+        #page3 .swiper-button-next{
+            right: 0;
+        }
+
+        #page3 .swiper-button-prev{
+            left: 0;
+        }
+
+        #page3 .swiper-pagination-bullet{
+            background-color: royalblue;
+            opacity: 1;
+        }
+
+        #page3 .swiper-pagination-bullet-active{
+            background-color: #5044ab;
+        }
+
+        @media screen and (max-width: 768px) {
+            #page3 .slide-content{
+                margin: 0 10px;
+            }
+
+            #page3 .swiper-navBtn{
+                display: none;
+            }
+        }
+
+        #map{
+            height: 100vh;
+            width: 100%;
+        }
+
+        .popup-content {
+            padding: 10px;
+            background-color: white;
+        }
+            /*border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }*/
+
+        .popup-button {
+            background-color: royalblue;
+            color: white;
+            border: none;
+            margin: 8px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .popup-button:hover {
+            background-color: #4169e1; /* Darker shade of blue on hover */
+        }
+
+        .footer p{
+            color: white;
+            background-color: black;
+            opacity: 0.8;
+            padding: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav">
+          <a href="#page1">
+            <img src="logo.png" alt="logo-white" />
+          </a>
+          <a href="#page1" class="active">Home</a>
+          <a href="#page2">The Tour</a>
+          <div class="dropdown">
+            <a href="#page3" class="dropbtn">Heritage Sites</a>
+            <div class="dropdown-content">
+              <a href="sites/Cox's Stack/index.html" target="_blank">Cox's Stack</a>
+              <a href="sites/Dudhope Castle/Dudhope.html" target="_blank">Dudhope Castle</a>
+              <a href="sites/Dundee Law War Memorial/Law.html" target="_blank">Dundee Law War Memorial</a>
+              <a href="sites/Powrie Castle/PowrieCastle.html" target="_blank">Powrie Castle</a>
+              <a href="sites/Telford Beacon/index.html" target="_blank">Telford Beacon</a>
+              <a href="sites/Wishart Arch/WishartsArch.html" target="_blank">Wishart's Arch</a>
+            </div>
+          </div>
+          <a href="#page4">Site Map</a>
+          <a href="chart.html">Data Charts</a>
+        </div>
+    </div>
+    <div id="main">
+        <div id="page1">
+            <div id="content">
+                <h1>Welcome to the Heritage Sites Dundee</h1>
+                <h2>Lets take a tour around Dundee</h2>
+                <h3>Exploring the Heritage Sites</h3>
+            </div>
+        </div>
+        <div id="page2">
+            <div class="des">
+                <h1>Let us see what awaits us at the heritage sites</h1>
+                <h3>Check out a few glimpses !!!</h3>
+            </div>
+            <div class="video">
+                <video src="MSc Project.mp4" autoplay muted loop></video>
+            </div>
+        </div>
+        <div id="page3">
+            <h1>Heritage Sites in Dundee</h1>
+            <div class="slide-container swiper">
+                <div class="slide-content">
+                    <div class="card-wrapper swiper-wrapper">
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="Cox's stack.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Cox's Stack</h2>
+                                <p class="description">Cox's Stack was built in 1866 and is one of few remnants of Camperdown Works.
+                                     It is now a remnant of the once-thriving jute industry in Dundee. 
+                                     It was designed by the architect James Maclaren and the engineer George Addison Cox, one of the Cox brothers.
+                                     It previously held the title of the tallest building in Europe.
+                                </p>
+                                <a href="sites/Cox's Stack/index.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="Dhope-Castle-Uni-Pic.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Dudhope Castle</h2>
+                                <p class="description">The castle was originally built in the late 13th century by the Scrymgeour family, with the original castle being a smaller tower house, This was replaced around 1460. The Castle is now used as office accommodation by Dundee City Council and is unfortunately not available for civil ceremonies.
+                                </p>
+                                <a href="sites/Dudhope Castle/Dudhope.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="the-dundee-law.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Dundee Law War Memorial</h2>
+                                <p class="description">Dundee Law is a hill in the centre of Dundee and is the highest point in the city.
+                                     The 572-foot peak is a popular destination for both tourists and residents.
+                                      In 1990’s to Create a Place for Visitors the View point was built.
+                                      Dundee Law, which takes its name from a Scots word for a prominent hill.
+                                </p>
+                                <a href="sites/Dundee Law War Memorial/Law.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="Powrie Castle Old Pic.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Powrie Castle</h2>
+                                <p class="description">Powrie Castle is a ruined 16th-century castle located in the north of Dundee, Scotland. 
+                                    It was designated as a scheduled monument in 1971. 
+                                    The early 17th-century north range of the castle is now a separate fortified house and has been converted into a private residence. 
+                                    It itself is a Category A listed building.
+                                </p>
+                                <a href="sites/Powrie Castle/PowrieCastle.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="Telford Beacon 1.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Telford Beacon</h2>
+                                <p class="description">The Telford beacon originally marked the entrance to King William IV Dock in Dundee. 
+                                     It was established in the mid-1830s and designed by James Leslie. 
+                                     Despite its name, the Telford Beacon was designed by James Leslie, a consultant to the famous engineer Thomas Telford. 
+                                </p>
+                                <a href="sites/Telford Beacon/index.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay"></span>
+                                <div class="card-image">
+                                    <img src="Wishart's Arch.jpg" alt="Cox" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="name">Wishart's Arch</h2>
+                                <p class="description">It is a remnant of the 16th century walls around a gateway. It was likely built in 1590 when Dundee was fortified.
+                                    Dundee Council were ordered to dismantle the city walls in 1746 after the Battle of Culloden but the Cowgate Port survived.
+                                    The arch is still situated in a street known as the Cowgate.
+                                </p>
+                                <a href="sites/Wishart Arch/WishartsArch.html" target="_blank"><button class="button">View More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-next swiper-navBtn"></div>
+                <div class="swiper-button-prev swiper-navBtn"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div id="page4">
+            <div id="map"></div>
+        </div>
+        <div class="footer">
+            <p>&copy; All Right Reserved | 2024 ; Dundee Heritage | By: Abhinab Kashyap</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script>
+            var swiper = new Swiper(".slide-content", {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                loop: true,
+                centerSlide: 'true',
+                fade: 'true',
+                grabCursor: 'true',
+                loopFillGroupWithBlank: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                    },
+                    512: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                },
+            });
+
+            var map = L.map('map').setView([56.470, -2.98], 13);
+
+            //OSM Layer
+            var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            })
+            osm.addTo(map);
+
+            //Location Markers
+            var locations = [
+                ["Cox's Stack", 56.47289, -3.00346, "sites/Cox's Stack/index.html"],
+                ["Dundee Law War Memorial", 56.46985, -2.98937, "sites/Dundee Law War Memorial/Law.html"],
+                ["Powrie Castle", 56.50115, -2.94003, "sites/Powrie Castle/PowrieCastle.html"],
+                ["Dudhope Castle", 56.46462, -2.98250, "sites/Dudhope Castle/Dudhope.html"],
+                ["Wishart's Arch", 56.46502, -2.96410, "sites/Wishart Arch/WishartsArch.html"],
+                ["Telford Beacon", 56.45905, -2.96316, "sites/Telford Beacon/index.html"]
+            ];
+
+            for (var i = 0; i < locations.length; i++) {
+                var marker = new L.marker([locations[i][1], locations[i][2]])
+                    .bindPopup(`<div class="popup-content"><b>${locations[i][0]}</b><br><a href="${locations[i][3]}" target="_blank"><button class="popup-button">Go to Page</button></a></div>`)
+                    .addTo(map);
+}
+
+
+
+            //Tile Layer
+            var TopPlusOpen_Grey = L.tileLayer('http://sgx.geodatenzentrum.de/wmts_topplus_open/tile/1.0.0/web_grau/default/WEBMERCATOR/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: 'Map data: &copy; <a href="http://www.govdata.de/dl-de/by-2-0">dl-de/by-2-0</a>'
+            });
+            TopPlusOpen_Grey.addTo(map);
+
+            //Google Map Layer
+
+            var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+                maxZoom: 20,
+                subdomains:['mt0','mt1','mt2','mt3']
+            });
+
+            googleStreets.addTo(map);
+
+            //Satelite Map Layer
+
+            /*var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+                maxZoom: 20,
+                subdomains:['mt0','mt1','mt2','mt3']
+            });
+
+            googleSat.addTo(map);
+        */
+            //Layer Control
+
+            var baseLayers = {
+            "OpenStreetMap": osm,
+            "Google Map": googleStreets,
+            //"Satellite" : googleSat,
+            "Open Gray" : TopPlusOpen_Grey
+            };
+
+            var overlays = {
+                //"Marker": marker,
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);
+            
+        </script>
+</body>
+</html>

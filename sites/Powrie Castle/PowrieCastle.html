@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powrie Castle</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+            transform: translateX(-100%);
+            }
+            100% {
+            transform: translateX(0);
+            }
+        }
+        
+        #nav{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 5px;    
+            background: #11141a;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            z-index: 100;
+            opacity: 0.9;
+            animation: 1s ease-out 0s 1 slideInFromLeft;
+        }
+        
+            #nav img {
+            height: 4vw;
+            z-index: 10;
+            position: relative;
+            margin-top: 5px;
+            width: 120px;
+            }
+            #nav a {
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: .3s;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+        
+            #nav a:hover,
+            #nav a.active{
+            color: #0ef;
+            }
+
+        .content1{
+            padding-top: 80px;
+        }
+
+        .content1 h1{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            text-decoration: underline;
+            background-color: #F5F3F4;
+        }
+
+        .content1 h2{
+            margin-top: 300px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .content1 p{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 4px;
+            background-color: #F5F3F4;
+        }
+
+        .key{
+            background-color: #fff;
+            width: fit-content;
+            margin-left: 640px;
+            border-radius: 5px;
+        }
+
+        #s2{
+            font-family: Helvetica, sans-serif;
+        }
+
+        #s2 h1{
+        color: white;
+        text-align: center;
+        margin-top: 80px;
+        }
+        
+        #s2 .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        }
+
+    /* The actual timeline (the vertical ruler) */
+    #s2 .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: white;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
+
+    /* Container around content */
+    #s2 .container {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+
+    /* The circles on the timeline */
+    #s2 .container::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -17px;
+        background-color: white;
+        border: 4px solid #FF9F55;
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    /* Place the container to the left */
+    #s2 .left {
+        left: 0;
+    }
+
+    /* Place the container to the right */
+    #s2 .right {
+        left: 50%;
+    }
+
+    /* Add arrows to the left container (pointing right) */
+    #s2 .left::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        right: 30px;
+        border: medium solid white;
+        border-width: 10px 0 10px 10px;
+        border-color: transparent transparent transparent white;
+    }
+
+    /* Add arrows to the right container (pointing left) */
+    #s2 .right::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        left: 30px;
+        border: medium solid white;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent white transparent transparent;
+    }
+
+    /* Fix the circle for containers on the right side */
+    #s2 .right::after {
+    left: -16px;
+    }
+
+    /* The actual content */
+    #s2 .content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+    }
+
+    /* Media queries - Responsive timeline on screens less than 600px wide */
+    @media screen and (max-width: 600px) {
+    /* Place the timelime to the left */
+    #s2 .timeline::after {
+        left: 31px;
+    }
+
+    /* Full-width containers */
+    #s2 .container {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    /* Make sure that all arrows are pointing leftwards */
+    #s2 .container::before {
+        left: 60px;
+        border: medium solid white;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent white transparent transparent;
+    }
+
+    /* Make sure all circles are at the same spot */
+    #s2 .left::after, .right::after {
+        left: 15px;
+    }
+
+    /* Make all right containers behave like the left ones */
+    #s2 .right {
+        left: 0%;
+    }
+    }
+
+    #s2 .bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #005BB2 50%, #09f 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+    }
+
+    #s2 .bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+    }
+
+    #s2 .bg3 {
+    animation-duration:5s;
+    }
+
+    @keyframes slide {
+    0% {
+        transform:translateX(-25%);
+    }
+    100% {
+        transform:translateX(25%);
+    }
+    }
+
+    #s3{
+        background-color: #005BB2;
+    }
+
+    #s3 h1{
+        padding: 40px;
+    }
+
+    #s3 h1, h3 {
+        text-align: center;
+        margin-top: 20px;
+        font-family: cursive;
+        color: #fff;
+        }
+
+#s3 .gallery {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+}
+
+#s3 .gallery-item {
+    width: calc(33.33% - 20px);
+    margin-bottom: 40px;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #s3 .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            height: 200px;
+        }
+
+        #s3 .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #s3 .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        #s3 .btn {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #s3 .btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        #s3 .close-btn {
+            top: 20px;
+            right: 20px;
+        }
+
+        #s3 .prev-btn {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        #s3 .next-btn {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+        .footer p{
+            color: white;
+            background-color: black;
+            opacity: 0.8;
+            padding: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav">
+            <a href="../../index.html">
+                <img
+              src="logo.png"
+              alt="logo-white"
+            /></a>
+            <a href="#s1" class="active">The Castle</a>
+            <a href="#s2">Timeline Events</a>
+            <a href="#s3">Image Gallery</a>
+            <a href="../../index.html">Return Home</a>
+          </div>
+    </div>
+    <div id="s1" style="width: auto; height: 900px; background-image: url('Powrie\ Castle\ Old\ Pic.jpg'); background-size: cover;">
+        <div class="content1">
+        <h1>Powrie Castle</h1>
+        <p>
+            North of Dundee, Scotland, is the abandoned 16th-century fortress known as Powrie fortress. 
+            In 1971, it received the designation of scheduled monument. 
+            The castle's early 17th-century north range has been transformed into a private home and is now a distinct fortified building.
+             It is a Category A listed building in and of itself.
+             Originally known as Wester Powrie, the estate was purchased by Thomas Fothringham in 1412 who built a castle of which nothing is known. 
+             This building is now a ruin and is on privately owned ground.
+        </p>
+            <div class="key">
+            <h2>Key Information</h2>
+            <p>Town or city:	Dundee<br>
+                Country:	Scotland<br>
+                Year built:	1412 AD<br>
+                Latitude: 56.5011<br>
+                Longitude: -2.9400<br>
+            </p>
+            </div>
+        </div>
+
+    </div>
+    <div id="s2">
+        <br>
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+        <h1>Powrie Castle Timeline</h1>
+        <div class="timeline">
+            <div class="container left">
+            <div class="content">
+            <h2>1412 AD</h2>
+            <p>Originally known as Wester Powrie, the estate was purchased by Thomas Fothringham in 1412 who built a castle of which nothing is known. </p>
+          </div>
+        </div>
+        <div class="container right">
+          <div class="content">
+            <h2>1492 AD</h2>
+            <p>That structure was destroyed by the Scrymgeours in 1492.</p>
+          </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+              <h2>1604 AD</h2>
+              <p>The north range was built in 1604 by the Thomas Fothringham who married Barbara Scott in 1593. 
+                With the disappearance of the east range and the western boundary wall, the castle now appears as two separate buildings forming a courtyard.
+                 The family appears to have remained in the main building until at least 1684.</p>
+            </div>
+          </div>
+          <div class="container right">
+            <div class="content">
+              <h2>20th Century</h2>
+              <p>A National Trust for Scotland competition was later held to design a plan to restore the north range.
+                 This was won by Gillian Strickland who was awarded ownership of the castle as a result. 
+                It was adapted as a private residence in 1978–1981 by architect D. C. Leslie.</p>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div id="s3">
+        <br>
+        <h1>Image Gallery</h1>
+        <h3>Click to Zoom In !!!</h3>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="Powrie Castle.jpg" alt="Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle (2).jpg" alt="Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 2.jpeg" alt="Image 3">
+            </div>
+            <div class="gallery-item">
+                <img src="0_Powrie-Castle.jpg" alt="Image 4">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 1.jpg" alt="Image 5">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 4.jpg" alt="Image 6">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 5.jpg" alt="Image 7">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 6.jpg" alt="Image 8">
+            </div>
+            <div class="gallery-item">
+                <img src="Powrie Castle 7.jpg" alt="Image 9">
+            </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+            <button class="btn close-btn" onclick="closeOverlay()">Close</button>
+            <button class="btn prev-btn" onclick="prevImage()">Previous</button>
+            <img src="" alt="Zoomed Image" id="zoomedImage">
+            <button class="btn next-btn" onclick="nextImage()">Next</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; All Right Reserved | 2024 ; Dundee Heritage | By: Abhinab Kashyap</p>
+    </div>
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentImageIndex = 0;
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                currentImageIndex = index;
+                displayOverlay(item.querySelector('img').src);
+            });
+        });
+
+        function displayOverlay(imgSrc) {
+            document.querySelector('#zoomedImage').src = imgSrc;
+            document.querySelector('.overlay').style.display = 'flex';
+        }
+
+        function closeOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            const prevImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = prevImgSrc;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            const nextImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = nextImgSrc;
+        }
+    </script>
+</body>
+</html>

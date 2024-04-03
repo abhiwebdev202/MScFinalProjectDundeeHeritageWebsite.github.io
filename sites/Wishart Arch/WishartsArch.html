@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishart's Arch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  #nav{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 5px 5px;    
+      background: #11141a;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      z-index: 100;
+      opacity: 0.9;
+      animation: 1s ease-out 0s 1 slideInFromLeft;
+  }
+  
+    #nav img {
+      height: 4vw;
+      z-index: 10;
+      position: relative;
+      margin-top: 5px;
+      width: 120px;
+    }
+    #nav a {
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 5px;
+      transition: .3s;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+  
+    #nav a:hover,
+    #nav a.active{
+      color: #0ef;
+    }
+
+        .content1{
+            padding-top: 80px;
+        }
+        .content1 h1{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .content1 h2{
+            margin-top: 300px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .content1 p{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 4px;
+            background-color: whitesmoke;
+        }
+
+        .key{
+            background-color: #fff;
+            width: fit-content;
+            margin-left: 640px;
+            border-radius: 5px;
+        }
+
+        #s2{
+            font-family: 'Homemade Apple', cursive;
+            background-color: #005BB2;
+            height: 920px;
+        }
+
+        #s2 h1{
+            text-align: center;
+            font-weight: bolder;
+            text-decoration: underline;
+            margin-top: 60px;
+            color: white;
+        }
+
+        #s2 p{
+            padding: 10px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        #s2 .img{
+            float: left;
+            position: relative;
+            margin-left: 220px;
+        }
+
+        #s2 .img img{
+            border: 1px solid black;
+            border-radius: 5px;
+            height: 500px;
+            width: 400px;
+        }
+
+        #s2 .img figcaption{
+            font-weight: bolder;
+            font-size: x-large;
+            text-align: center;
+            justify-content: center;
+            color: white;
+        }
+
+        #s2 .table{
+            float: right;
+            position: relative;
+            margin-right: 200px;
+            margin-top: 80px;
+        }
+
+        #s2 .table .cap{
+            font-size: xx-large;
+        }
+        #s2 .table table, th, td {
+            border:1px solid black;
+            padding: 8px;
+        }
+
+        #s2 .table th {
+            background-color: #cecece;
+        }
+
+        #s2 .table tr:hover {
+            background-color: #D6EEEE;
+        }
+
+        #s3{
+            font-family: cursive;
+         /* Center align vertically */
+            background-color:#fff;
+        }
+
+        #s3 h1{
+            margin-top: 80px;
+            font-family: cursive;
+        }
+
+        #s3 h3{
+            color: #005BB2;
+        }
+
+        #s3 h1, h3{
+            text-align: center;
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #005BB2;
+            font-weight: bolder;
+        }
+
+        #s3 .flp{
+            flex-direction: row;
+            width: 100vw;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #s3 .flp .flip-card-container {
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            margin: 0 auto;
+        }
+        #s3 .flp .flip-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+        #s3 .flp .flip-card-container:hover .flip-card {
+            transform: rotateY(180deg); /* <=>  rotateY(.5turn) */
+        }
+        /* Position the front and back side */
+        #s3 .flp .flip-card-front, .flp .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #s3 .flp .flip-card-front {
+            background-color: #333;
+            color: #fff;
+        }
+        #s3 .flp .flip-card-back {
+            background-color:  #005BB2;
+            color: #fff;
+            transform: rotateY(180deg);
+        }
+
+        #s3 .flp .flip-card-front img {
+            width: 100%;
+            height: 100%;
+        }
+        #s3 .flp .flip-card-back p {
+            text-align: center;
+            margin: 1rem;
+            font-size: 1.4rem;
+            line-height: 1.5rem;
+        }
+        #s3 .flp .flip-card-back p span {
+            display: block;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: bold;
+            margin-top: 1.25rem;
+        }
+
+        #s4{
+            font-family: cursive, Arial, sans-serif;
+            background-color: #005BB2;
+            height: 640px;
+            }
+
+        #s4 h1, h3 {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+            font-family: cursive;
+        }
+
+        #s4 .gallery {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #s4 .gallery-item {
+            width: calc(33.33% - 20px);
+            margin-bottom: 40px;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #s4 .gallery-item img {
+            width: 100%;
+            height: 200px;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        #s4 .gallery-item:hover img{
+            transform: scale(1.1);
+        }
+
+        #s4 .caption {
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        #s4 .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #s4 .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        #s4 .btn {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #s4 .btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        #s4 .close-btn {
+            top: 20px;
+            right: 20px;
+        }
+
+        #s4 .prev-btn {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        #s4 .next-btn {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .footer p{
+            color: white;
+            background-color: black;
+            opacity: 0.8;
+            padding: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav">
+            <a href="../../index.html">
+                <img
+              src="logo.png"
+              alt="logo-white"
+            /></a>
+            <a href="#s1" class="active">The Arch</a>
+            <a href="#s2">George Wishart</a>
+            <a href="#s3">Timeline Gallery</a>
+            <a href="#s4">Related Images</a>
+            <a href="../../index.html">Return Home</a>
+          </div>
+    </div>
+    <div id="s1" style="width: auto; height: 900px; background-image: url('Wishart\'s\ Arch\ Old\ Pic.jpg'); background-size: cover;">
+        <div class="content1">
+        <h1>Wishart's Arch</h1>
+        <p>
+            The Wishart Arch is the name given in more recent times to a remnant of the 16th century city walls of Dundee around a gateway, the East Port or Cowgate. 
+            The arch is still situated in a street known as the Cowgate, although this section is isolated from its continuation in the western by the A991 inner ring road. 
+            Most likely built when Dundee was fortified around 1590, 
+            its survival is due to its probably-mythical connection with the Protestant reformer George Wishart (1513-46), whose is said to have preached from the structure in 1544.
+        </p>
+            <div class="key">
+            <h2>Key Information</h2>
+            <p>Town or city:	Dundee<br>
+                Country:	Scotland<br>
+                Year(s) built:	1590 AD<br>
+                Latitude: 56.4650<br>
+                Longitude: -2.9641
+            </p>
+            </div>
+        </div>
+
+    </div>
+    <div id="s2">
+        <br>
+        <h1>George Wishart</h1>
+        <p>One of the first Protestant martyrs to be burnt at the stake for heresy was the Scottish Protestant reformer George Wishart (also known as Wisehart; c. 1513–1 March 1546).
+        James Wishart's son and Sir John of Pitarrow's brother, George Wishart, identified as Reformer supporters. After graduating from the freshly established University of Aberdeen, he went on a European tour.
+             It is said that he began studying the Reformed beliefs for the first time while he was overseas. He took up teaching Greek at Montrose for a while. 
+             After that, Wishart moved to Cambridge, where he lived for almost six years, from 1538 until 1543.
+             Riding in the train of the Commissioners ordered to arrange Prince Edward and the Queen of Scots' marriage, he made his way back to Scotland.  
+             He preached to the populace at Montrose, Dundee, and all across Ayrshire, and was well received. Wishart, who had just spoken of being close to death, was captured by Bothwell in the home of Cockburn in Ormiston as he was traveling eastward into the Lothians.
+              After being taken prisoner to St. Andrews, he was tried by a clerical Assembly, declared guilty, and sentenced to death as an uncompromising heretic. 
+             The day after, he was crucified at the stake on Castle Green, as his prosecutor, Cardinal David Beaton, also known as Bethune, watched from the castle's windows. 
+             Three months later, he would be killed himself.
+        </p>
+    <div class="img">
+        <img src="George_Wishart_(c.1513–1546),_Reformer_and_Martyr.jpg" alt="Wishart">
+        <figcaption>George Wishart</figcaption>
+    </div>
+    <div class="table">
+        <caption class="cap">Facts TABLE</caption>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Information</th>
+            </tr>
+            <tr>
+            <td>Born</td>
+            <td>1513,Kincardineshire , Scotland</td>
+            </tr>
+            <tr>
+            <td>Died</td>
+            <td>1546, St Andrews, Scotland</td>
+            </tr>
+            <tr>
+            <td>Alma mater</td>
+            <td>University of Aberdeen<br>
+            University of Leuven<br>
+            Corpus Christi College, Cambridge</td>
+            </tr>
+            <tr>
+                <td>Occupation</td>
+                <td>Preacher</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <div id="s3">
+        <h1>Timeline Gallery</h1>
+        <h3>Explore historical events through the centuries. Hover Images for more details.</h3>
+    <div class="flp">
+    <div class="flip-card-container">
+        <div class="flip-card">
+          <div class="flip-card-front">
+            <img src="Wishart's Arch 2.jpg" alt="Arch">
+          </div>
+          <div class="flip-card-back">
+            <p>
+                The Arch is the only surviving portion of the town's walls, 
+                and probably survived owing to a story that George Wishart preached from it in 1544 to plague victims. 
+              <span>Year 1544</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-container">
+        <div class="flip-card">
+          <div class="flip-card-front">
+            <img src="WAOld1.jpg" alt="Arch">
+          </div>
+          <div class="flip-card-back">
+            <p>
+                "The story of George Wishart been described as 'probably-mythical' and the structure is thought to have been built around 1590, long after Wishart's death."
+              <span>Year 1590</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-container">
+        <div class="flip-card">
+          <div class="flip-card-front">
+            <img src="WAOld.jpg" alt="Arch">
+          </div>
+          <div class="flip-card-back">
+            <p>
+              "The rest of the fortress and the city walls were demolished as retribution for the losses incurred by the Battle of Culloden in 1746,
+               but the remains of a gateway in the town's walls survived, the Arch."
+              <span>Year 1746</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-container">
+        <div class="flip-card">
+          <div class="flip-card-front">
+            <img src="Wishart's Arch 3.jpg" alt="Arch">
+          </div>
+          <div class="flip-card-back">
+            <p>
+              "It was restored in the year 1877 and its still standing."
+              <span>Year 1877</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="s4">
+        <br>
+        <h1>Related Images</h1>
+        <h3>Click to Zoom In !!!</h3>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="Wishart_Preaching_against_Mariolatry.jpg" alt="Image 1">
+                <div class="caption">Wishart preaching against Mariolatry</div>
+            </div>
+            <div class="gallery-item">
+                <img src="George_Wishart_Last_Communication.jpg" alt="Image 2">
+                <div class="caption">George Wishart's last communion</div>
+            </div>
+            <div class="gallery-item">
+                <img src="Blue_Plaque_to_George_Wishart_1513-1546.jpg" alt="Image 3">
+                <div class="caption">Blue Plaque to George Wishart 1513-1546</div>
+            </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+            <button class="btn close-btn" onclick="closeOverlay()">Close</button>
+            <button class="btn prev-btn" onclick="prevImage()">Previous</button>
+            <img src="" alt="Zoomed Image" id="zoomedImage">
+            <button class="btn next-btn" onclick="nextImage()">Next</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; All Right Reserved | 2024 ; Dundee Heritage | By: Abhinab Kashyap</p>
+    </div>
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentImageIndex = 0;
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                currentImageIndex = index;
+                displayOverlay(item.querySelector('img').src);
+            });
+        });
+
+        function displayOverlay(imgSrc) {
+            document.querySelector('#zoomedImage').src = imgSrc;
+            document.querySelector('.overlay').style.display = 'flex';
+        }
+
+        function closeOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            const prevImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = prevImgSrc;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            const nextImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = nextImgSrc;
+        }
+    </script>
+</body>
+</html>

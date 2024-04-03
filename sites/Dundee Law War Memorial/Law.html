@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dundee Law War Memorial</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+            transform: translateX(-100%);
+            }
+            100% {
+            transform: translateX(0);
+            }
+        }
+        
+        #nav{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 5px;    
+            background: #11141a;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            z-index: 100;
+            opacity: 0.9;
+            animation: 1s ease-out 0s 1 slideInFromLeft;
+        }
+        
+        #nav img {
+            height: 4vw;
+            z-index: 10;
+            position: relative;
+            margin-top: 5px;
+            width: 120px;
+        }
+
+        #nav a {
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: .3s;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        #nav a:hover,
+        #nav a.active{
+            color: #0ef;
+        }
+
+        .content1{
+            padding-top: 80px;
+        }
+        .content1 h1{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            text-decoration: underline;
+            background-color: #939393;
+        }
+
+        .content1 h2{
+            margin-top: 300px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .content1 p{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: bolder;
+            text-align: center;
+            padding: 4px;
+            background-color: #939393;
+        }
+
+        .key{
+            background-color: #939393;
+            width: fit-content;
+            margin-left: 640px;
+            border-radius: 5px;
+        }
+
+        #s2{
+            background-color: #005BB2;
+            height: 800px;
+        }
+
+        #s2 h1, h3{
+            text-align: center;
+            font-family: cursive;
+            padding: 60px;
+            color: white;
+        }
+
+        #s2 video {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        #s3{
+            font-family: Helvetica, sans-serif;
+        }
+
+        #s3 h1{
+        color: white;
+        text-align: center;
+        margin-top: 80px;
+        }
+        
+        #s3 .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        }
+
+        /* The actual timeline (the vertical ruler) */
+        #s3 .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: white;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        /* Container around content */
+        #s3 .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        /* The circles on the timeline */
+        #s3 .container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #FF9F55;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Place the container to the left */
+        #s3 .left {
+            left: 0;
+        }
+
+        /* Place the container to the right */
+        #s3 .right {
+            left: 50%;
+        }
+
+        /* Add arrows to the left container (pointing right) */
+        #s3 .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        /* Add arrows to the right container (pointing left) */
+        #s3 .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        /* Fix the circle for containers on the right side */
+        #s3 .right::after {
+            left: -16px;
+        }
+
+        /* The actual content */
+        #s3 .content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+        }
+
+        /* Media queries - Responsive timeline on screens less than 600px wide */
+        @media screen and (max-width: 600px) {
+        /* Place the timelime to the left */
+        #s3 .timeline::after {
+            left: 31px;
+        }
+
+        /* Full-width containers */
+        #s3 .container {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 25px;
+        }
+
+        /* Make sure that all arrows are pointing leftwards */
+        #s3 .container::before {
+            left: 60px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        /* Make sure all circles are at the same spot */
+        #s3 .left::after, .right::after {
+            left: 15px;
+        }
+
+        /* Make all right containers behave like the left ones */
+        #s3 .right {
+            left: 0%;
+        }
+        }
+
+        #s3 .bg {
+            animation:slide 3s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, #005BB2 50%, #09f 50%);
+            bottom:0;
+            left:-50%;
+            opacity:.5;
+            position:fixed;
+            right:-50%;
+            top:0;
+            z-index:-1;
+        }
+
+        #s3 .bg2 {
+            animation-direction:alternate-reverse;
+            animation-duration:4s;
+        }
+
+        #s3 .bg3 {
+            animation-duration:5s;
+        }
+
+        @keyframes slide {
+            0% {
+                transform:translateX(-25%);
+            }
+            100% {
+                transform:translateX(25%);
+            }
+        }
+
+        #s4{
+            font-family: cursive, Arial, sans-serif;
+            background-color: #005BB2;
+            height: auto;
+            }
+
+        #s4 h1, h3 {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+            padding: 40px;
+            font-family: cursive;
+        }
+
+        #s4 .gallery {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #s4 .gallery-item {
+            width: calc(33.33% - 20px);
+            margin-bottom: 40px;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #s4 .gallery-item img {
+            width: 100%;
+            height: 200px;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        #s4 .gallery-item:hover img{
+            transform: scale(1.1);
+        }
+
+        #s4 .caption {
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        #s4 .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #s4 .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        #s4 .btn {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #s4 .btn:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        #s4 .close-btn {
+            top: 20px;
+            right: 20px;
+        }
+
+        #s4 .prev-btn {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        #s4 .next-btn {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .footer p{
+            color: white;
+            background-color: black;
+            opacity: 0.8;
+            padding: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav">
+            <a href="../../index.html">
+                <img
+              src="logo.png"
+              alt="logo-white"
+            /></a>
+            <a href="#s1" class="active">The Law</a>
+            <a href="#s2">Panoramic Viewpoint</a>
+            <a href="#s3">Timeline Events</a>
+            <a href="#s4">Timeline Images</a>
+            <a href="../../index.html">Return Home</a>
+          </div>
+    </div>
+    <div id="s1" style="width: auto; height: 900px; background-image: url('Old.png'); background-size: cover;">
+        <div class="content1">
+        <h1>Dundee Law War Memorial</h1>
+        <p>
+            The 572-foot peak is the city's most distinctive landmark and an enduring attraction for visitors and locals.
+            Dundee Law is a hill in the centre of Dundee, Scotland, and is the highest point in the city. 
+            The Law is what remains of a volcanic sill, which is the result of volcanic activity around 400 million years ago. 
+            With a large war memorial at its summit, it is the most prominent feature on the local skyline.
+            The Law is a volcanic sill, despite the fact that everyone refers to it as "Dundee's Volcano." This is a subterranean, sideways lava flow that formed 400 million years ago when the rock was softer. 
+            Before harsh weather, rain, and glaciers removed the softer rock to reveal the hard volcanic rock that is visible today, the volcanic rock of Dundee Law was covered in layers of other rock for millions of years. 
+        </p>
+            <div class="key">
+            <h2>Key Information</h2>
+            <p>Town or city:	Dundee<br>
+                Country:	Scotland<br>
+                Unveiled:	1925 AD<br>
+                Latitude: 56.4698 <br>
+                Longitude: -2.9894<br>
+            </p>
+            </div>
+        </div>
+
+    </div>
+    <div id="s2">
+        <br>
+        <h1>Video of Panoramic View from the Dundee Law</h1>
+        <video controls>
+            <source src="View From Dundee Law Scotland.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h3>From the peak of Dundee Law, you can see the entire city, the River Tay, Fife, the Sidlaw Hills, and beyond.</h3>
+    </div>
+    <div id="s3">
+        <br>
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+        <h1>Dundee Law Timeline</h1>
+        <div class="timeline">
+            <div class="container leftt">
+                <div class="content">
+                  <h2>3000 BC</h2>
+                  <p>Bronze Age, Local people have developed a complex society. 
+                    Bronze Age people use the Law for rituals, including burying their dead with possessions such as weapons and clothing.</p>
+                </div>
+              </div>
+            <div class="container right">
+            <div class="content">
+            <h2>1500 BC - 100 AD</h2>
+            <p>For a millennia, the Law served as a crucial component of Dundee's defenses. 
+                It was utilized as an Iron Age hillfort, and archaeological remains from around 1500 BC have been discovered on its inclines. 
+                Additionally, first-century AD Roman ceramics have been found. </p>
+          </div>
+        </div>
+        <div class="container leftt">
+          <div class="content">
+            <h2>1500s</h2>
+            <p>Law re-fortified with Bastions, possibly during unrest during the Rough Wooing.</p>
+          </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+              <h2>1629 - 1860 AD</h2>
+              <p>To accommodate the Dundee to Newtyle railway, the Law had a 300-meter-long, 3-meter-diameter tunnel constructed through its eastern slope in the 1820s. 
+                The first locomotive, which was initially driven by horse, was unveiled in 1833 and continued to run until the 1860s, 
+                when a new railway route was constructed to avoid the hill.</p>
+            </div>
+          </div>
+          <div class="container left">
+            <div class="content">
+              <h2>1850s - 1908 AD</h2>
+              <p>Open quarries produce high quality rock for construction. Quarries later used for land fill. 
+                The first car to drive to the top was a 1906 Werbell, built in Dundee.</p>
+            </div>
+          </div>
+          <div class="container right">
+            <div class="content">
+              <h2>16th May 1925 AD</h2>
+              <p>The War Memorial is unveiled</p>
+            </div>
+          </div>
+          <div class="container left">
+            <div class="content">
+              <h2>1940s</h2>
+              <p>World War 2, Pillbox built, memorial used as lookout, tunnel used as an air raid shelter.</p>
+            </div>
+          </div>
+          <div class="container right">
+            <div class="content">
+              <h2>1990s</h2>
+              <p>Creating a Place for Visitors, View point built, archaeological excavations confirm existence of hillfort and bastions.</p>
+            </div>
+          </div>
+      </div>
+      <div id="s4">
+        <br>
+        <h1>Timeline Related Images</h1>
+        <h3>Click to Zoom In !!!</h3>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="timeline3.png" alt="Image 1">
+                <div class="caption">Bronze Age Accessories</div>
+            </div>
+            <div class="gallery-item">
+                <img src="Hillfort-top.png" alt="Image 2">
+                <div class="caption">Artistic Representation of Iron Age Hillfort</div>
+            </div>
+            <div class="gallery-item">
+                <img src="timeline9.jpg" alt="Image 3">
+                <div class="caption">Pillbox, used as lookout and the tunnel used as an air raid shelter.</div>
+            </div>
+            <div class="gallery-item">
+                <img src="Remembrance-Day-at-the-Dundee-War-Memorial-on-the-Law.jpg" alt="Image 4">
+                <div class="caption">Picture of Remembrance Day from 1931</div>
+            </div>
+            <div class="gallery-item">
+                <img src="pexels-valentine-kulikov-10883480.jpg" alt="Image 2">
+                <div class="caption">Bird's Eye View of the site</div>
+            </div>
+            <div class="gallery-item">
+                <img src="Dundee Law 3.jpg" alt="Image 3">
+                <div class="caption">Present Day Drone Image</div>
+            </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+            <button class="btn close-btn" onclick="closeOverlay()">Close</button>
+            <button class="btn prev-btn" onclick="prevImage()">Previous</button>
+            <img src="" alt="Zoomed Image" id="zoomedImage">
+            <button class="btn next-btn" onclick="nextImage()">Next</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; All Right Reserved | 2024 ; Dundee Heritage | By: Abhinab Kashyap</p>
+    </div>
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentImageIndex = 0;
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                currentImageIndex = index;
+                displayOverlay(item.querySelector('img').src);
+            });
+        });
+
+        function displayOverlay(imgSrc) {
+            document.querySelector('#zoomedImage').src = imgSrc;
+            document.querySelector('.overlay').style.display = 'flex';
+        }
+
+        function closeOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            const prevImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = prevImgSrc;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            const nextImgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            document.querySelector('#zoomedImage').src = nextImgSrc;
+        }
+    </script>
+</body>
+</html>
